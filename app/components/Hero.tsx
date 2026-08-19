@@ -54,8 +54,8 @@ export default function Hero() {
           variants={item}
           className="mt-5 max-w-xl text-balance text-lg leading-relaxed text-foreground sm:text-xl"
         >
-          Final-year Computer Science student learning web development, data
-          analysis and Python &mdash; in public.
+          Computer Scientist in web development, data
+          analysis and Python.
         </motion.p>
 
         <motion.p

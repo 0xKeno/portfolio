@@ -42,7 +42,7 @@ export default function About() {
             variants={item}
             className="text-pretty text-base leading-relaxed text-foreground"
           >
-            I&apos;m a final-year Computer Science student currently in Benin
+            I&apos;m a Computer Scientist currently in Benin
             City, Nigeria.
           </motion.p>
 
