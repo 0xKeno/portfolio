@@ -20,11 +20,20 @@ const description =
   "Final-year Computer Science student in Benin City, Nigeria. AI data annotation, IT support, and learning software development in public.";
 
 export const metadata: Metadata = {
+  // Resolves every relative metadata URL below into an absolute one. Crawlers
+  // fetch from outside the site, so "/" means nothing to them without this.
+  metadataBase: new URL("https://0xkeno.vercel.app"),
   title,
   description,
+  // Every Vercel deployment also gets its own permanent URL, so without a
+  // canonical those can be indexed as duplicates of the production site.
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title,
     description,
+    url: "/",
     type: "website",
     locale: "en_NG",
     siteName: "Okpoudhu Destiny Oghenekeno",
