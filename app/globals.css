@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-background: #0A0A0B;
+  --color-surface: #141416;
+  --color-border: #232326;
+  --color-foreground: #EDEDEF;
+  --color-muted: #8A8A94;
+  --color-accent: #A78BFA;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  color-scheme: dark;
+}
+
+/* Anchor jumps glide instead of teleporting — but a long animated scroll is
+   exactly what reduced-motion users are asking us not to do. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Faint dot texture. Border colour, never accent — this is texture, not
+   pattern, and it must not compete with the hero glow sitting above it.
+   Masked out toward the bottom so the page settles before the footer. */
+.dot-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    var(--color-border) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  /* Absent across the hero, fading in once past it, so the hero stays clean.
+     Stops are in svh — not percentages — because this element spans the whole
+     document, so a percentage would re-target every time the page grows. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 100svh,
+    #000 160svh
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 100svh,
+    #000 160svh
+  );
+}
+
+/* Ambient light behind the hero. Fades to a zero-alpha *accent*, not to
+   `transparent` — `transparent` is rgba(0,0,0,0), so interpolating to it
+   drags the midpoint through grey and dirties the falloff. */
+.hero-glow {
+  background-image: radial-gradient(
+    closest-side,
+    rgb(from var(--color-accent) r g b / 0.08),
+    rgb(from var(--color-accent) r g b / 0)
+  );
+}
+
+/* Solid accent by default. The gradient is layered on only where
+   background-clip: text is supported, so an unsupporting browser never ends
+   up with `color: transparent` and nothing painting over it. */
+.wordmark {
+  color: var(--color-accent);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .wordmark {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-accent),
+      color-mix(in oklab, var(--color-accent), white 38%)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }
