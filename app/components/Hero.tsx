@@ -1,90 +1,129 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
 
-import { useStagger } from "@/app/lib/motion";
+import CopyEmail from "@/app/components/CopyEmail";
+import { profile, summary } from "@/app/lib/content";
+import { useStagger, useWordReveal } from "@/app/lib/motion";
 
 export default function Hero() {
-  const { container, item, prefersReducedMotion } = useStagger();
+  const { container, item, reduced } = useStagger({ delay: 0.35, travel: 18 });
+  const { container: words, word } = useWordReveal(0.1);
+
+  const nameWords = profile.name.split(" ");
 
   return (
     <section
       id="hero"
-      className="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden px-6 py-24 sm:px-10"
+      className="relative flex min-h-[92svh] items-center px-6 pb-20 pt-28 sm:px-10"
     >
-      <div
-        aria-hidden="true"
-        className="hero-glow pointer-events-none absolute left-1/2 top-1/2 h-[36rem] w-[52rem] -translate-x-1/2 -translate-y-1/2"
-      />
-
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="visible"
-        className="relative mx-auto w-full max-w-3xl"
-      >
-        <motion.div
-          variants={item}
-          className="flex flex-wrap items-center gap-x-4 gap-y-3"
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-foreground">
-            <motion.span
-              aria-hidden="true"
-              className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-              animate={
-                prefersReducedMotion ? undefined : { opacity: [1, 0.3, 1] }
-              }
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            />
-            Open to remote work
-          </span>
-          <span className="font-mono text-xs text-muted">
-            Benin City, Nigeria
-          </span>
-        </motion.div>
-
+      <div className="mx-auto w-full max-w-5xl">
+        {/* Name. The visible text is split into animated word spans, so the
+            whole string is given to assistive tech once on the wrapper and the
+            spans themselves are hidden from it. */}
         <motion.h1
-          variants={item}
-          className="mt-8 text-balance text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          variants={words}
+          initial="hidden"
+          animate="visible"
+          aria-label={profile.name}
+          className="display text-[clamp(2.5rem,8vw,5.5rem)] font-semibold leading-[0.95] tracking-tight"
         >
-          Okpoudhu Destiny Oghenekeno
+          {nameWords.map((text, index) => (
+            <span key={text} className="inline-block overflow-hidden pb-[0.08em]">
+              <motion.span
+                variants={word}
+                aria-hidden="true"
+                className="inline-block"
+              >
+                {text}
+                {index < nameWords.length - 1 ? " " : null}
+              </motion.span>
+            </span>
+          ))}
         </motion.h1>
 
-        <motion.p
-          variants={item}
-          className="mt-5 max-w-xl text-balance text-lg leading-relaxed text-foreground sm:text-xl"
-        >
-          Computer Scientist in web development, data
-          analysis and Python.
-        </motion.p>
-
-        <motion.p
-          variants={item}
-          className="mt-6 max-w-[33rem] text-pretty text-base leading-relaxed text-muted"
-        >
-          I work in AI data annotation, spent six months on an enterprise IT help
-          desk, and I&apos;m building my way into software development one honest
-          project at a time. This site is the first of them.
-        </motion.p>
-
         <motion.div
-          variants={item}
-          className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+          className="mt-8"
         >
-          <a
-            href="#experience"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:w-auto"
+          <motion.div
+            variants={item}
+            className="flex flex-wrap items-center gap-x-4 gap-y-3"
           >
-            See my experience
-          </a>
-          <a
-            href="mailto:kennyokpoudhu@gmail.com"
-            className="inline-flex w-full items-center justify-center rounded-lg border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:w-auto"
+            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-foreground">
+              <motion.span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-data"
+                animate={reduced ? undefined : { opacity: [1, 0.25, 1] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              {profile.availability}
+            </span>
+            <span className="font-mono text-xs text-faint">
+              {profile.location} · {profile.timezone}
+            </span>
+          </motion.div>
+
+          <motion.p
+            variants={item}
+            className="mt-7 max-w-2xl text-balance text-xl leading-snug text-foreground sm:text-2xl"
           >
-            Get in touch
-          </a>
+            {profile.title} working in {profile.strapline}.
+          </motion.p>
+
+          <motion.p
+            variants={item}
+            className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted"
+          >
+            {summary}
+          </motion.p>
+
+          <motion.div
+            variants={item}
+            className="mt-10 flex flex-wrap items-center gap-3"
+          >
+            <Link
+              href="/cv"
+              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              <FileText aria-hidden="true" className="h-4 w-4" />
+              Read my CV
+            </Link>
+
+            <a
+              href="#evidence"
+              className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              See the evidence
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4 text-muted" />
+            </a>
+
+            <CopyEmail className="py-3" />
+          </motion.div>
+
+          <motion.p
+            variants={item}
+            aria-hidden="true"
+            className="mt-16 flex items-center gap-2 font-mono text-xs text-faint"
+          >
+            <motion.span
+              animate={reduced ? undefined : { y: [0, 4, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-flex"
+            >
+              <ArrowDown className="h-3.5 w-3.5" />
+            </motion.span>
+            Scroll, or press
+            <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-muted">
+              Ctrl K
+            </kbd>
+          </motion.p>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
