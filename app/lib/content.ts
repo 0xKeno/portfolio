@@ -12,9 +12,9 @@
 export const profile = {
   name: "Okpoudhu Destiny Oghenekeno",
   handle: "0xKeno",
-  /* Never "graduate" until results are released. */
-  title: "Computer Science graduand",
-  strapline: "IT operations, digital and data",
+  /* Results released October 2026: Second Class Honours (Upper Division). */
+  title: "Computer Science graduate",
+  strapline: "web and app development and IT support",
   location: "Benin City, Edo State, Nigeria",
   timezone: "UTC+1",
   email: "kennyokpoudhu@gmail.com",
@@ -22,11 +22,15 @@ export const profile = {
   github: "https://github.com/0xKeno",
   linkedin: "https://linkedin.com/in/0xkeno",
   site: "https://0xkeno.vercel.app",
-  availability: "Open to graduate programmes and remote work",
+  availability: "Open to graduate, junior developer and remote roles",
 } as const;
 
+/** The short version, for the hero. */
+export const heroLine =
+  "Second Class Upper in Computer Science. I design, build and ship websites and web apps with Next.js, React and TypeScript, on top of six months of enterprise IT at NNPC E&P.";
+
 export const summary =
-  "Six months of enterprise IT operations inside Nigeria's national oil and gas exploration company, and two production websites built and shipped — one of them for a Niger Delta upstream production operations lead. I work inside written procedure rather than around it, and decide from measurement rather than preference.";
+  "I design, build and ship websites and web apps with Next.js, React and TypeScript — one of them for a Niger Delta upstream production operations lead. Before that, six months of enterprise IT operations inside Nigeria's national oil and gas exploration company taught me to work inside written procedure and to decide from measurement rather than preference.";
 
 /* -------------------------------------------------------------------------
    Metrics
@@ -155,6 +159,21 @@ export type Role = {
 
 export const roles: Role[] = [
   {
+    title: "Freelance Web and App Developer",
+    company: "Self-employed",
+    context: "Benin City · Remote",
+    start: { label: "Aug 2026", iso: "2026-08" },
+    end: null,
+    summary:
+      "Designing, building and deploying websites and web apps — for a client, for my own brand, and now an app of my own in development.",
+    points: [
+      "Delivered a live career website for an upstream oil and gas production operations team lead, working from his record and brief rather than my own taste.",
+      "Built and maintain this site in Next.js, TypeScript, Tailwind CSS and Framer Motion, deploying automatically from GitHub to Vercel on every push.",
+      "Currently building Trading Desks, an app for new traders with a built-in assistant bot.",
+      "Write Python and Playwright scripts to automate repetitive browser and file-processing work.",
+    ],
+  },
+  {
     title: "IT Administration / Help Desk Intern (SIWES)",
     company: "NNPC Exploration & Production Limited",
     context: "Benin City",
@@ -220,17 +239,17 @@ export const projects: Project[] = [
   {
     id: "portfolio",
     name: "This site",
-    tagline: "Built, rebuilt, and rebuilt again in public",
+    tagline: "Built, rebuilt, and redesigned in public",
     role: "Personal",
     year: "2026",
     summary:
-      "My own portfolio, on its third structure. Each rewrite happened because the goal moved rather than because the code broke, and I can account for every decision still in it.",
+      "My own portfolio, now on its fourth version. Each rewrite happened because the goal moved rather than because the code broke, and I can account for every decision still in it.",
     brief:
       "Answer, for a graduate-scheme recruiter and a developer at the same time, whether I can analyse a problem, learn from feedback, work with people and deliver a result — with specific evidence rather than adjectives.",
     decisions: [
       "Started in plain HTML and CSS, then moved to Next.js and TypeScript partway through, when hand-written state and duplicated markup began costing more than they saved. Stopping to change stack was cheaper than finishing something I would have to redo.",
       "Every fact on the site lives in one content module that both the homepage and the CV page read from, so the two can physically never disagree with each other.",
-      "Two accent colours with a strict division of labour: violet is identity, teal is numbers only. The moment the number colour decorates anything, it stops meaning “this is a real measurement”.",
+      "Redesigned in the manner of an Apple product page: the system font, a frosted navigation bar, light and dark themes that follow the visitor's device, and two accent colours with a strict division of labour — blue is identity, green is numbers only.",
       "Every animation collapses under prefers-reduced-motion, the command palette only duplicates routes that already exist as ordinary links, and each disclosure is a real button inside a heading rather than a div with a click handler.",
     ],
     outcome:
@@ -238,6 +257,20 @@ export const projects: Project[] = [
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
     href: "https://0xkeno.vercel.app",
     repo: "https://github.com/0xKeno/portfolio",
+  },
+  {
+    id: "tradingdesks",
+    name: "Trading Desks",
+    tagline: "An app for new traders, with a bot that helps them along",
+    role: "In progress",
+    year: "2026",
+    summary:
+      "An app built for people who are new to trading, with a built-in bot that aids users as they find their way. It is in active development, so the detail stays private until launch.",
+    brief:
+      "Give new traders a place to start that does not assume they already know what they are doing.",
+    decisions: [],
+    outcome: "In development. More to show at launch.",
+    stack: [],
   },
   {
     id: "objectfiles",
@@ -282,6 +315,8 @@ export const skillGroups: SkillGroup[] = [
       "Next.js",
       "Node.js",
       "Tailwind CSS",
+      "Framer Motion",
+      "Playwright",
       "HTML",
       "CSS",
       "Git",
@@ -335,17 +370,17 @@ export const skillGroups: SkillGroup[] = [
 export const education = {
   degree: "B.Sc. Computer Science",
   institution: "Wellspring University, Benin City",
-  period: "Sep 2022 – Oct 2026 (expected)",
+  period: "Sep 2022 – Oct 2026",
   notes: [
-    "Final examinations completed; results pending. On track for Second Class Upper (2:1) or above.",
+    "Second Class Honours (Upper Division), CGPA 4.11 / 5.00.",
     "Relevant modules: Artificial Intelligence & Machine Learning, Data Structures & Algorithms, Database Systems, Software Engineering, Computer Networks, Statistics.",
   ],
-  nysc: "Not yet served. Expected call-up late 2026 / early 2027.",
+  nysc: "Not yet served.",
 } as const;
 
 /* What I am actually doing right now — kept short and kept current. */
 export const now: string[] = [
-  "Producing and publishing on The Object Files, and reading each video's numbers before deciding the next one.",
+  "Building Trading Desks, an app for new traders, alongside freelance web work.",
   "Working through CS50P, moving Python from coursework into something I have built with.",
-  "Waiting on final results, and preparing for NYSC.",
+  "Preparing for NYSC.",
 ];

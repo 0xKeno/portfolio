@@ -9,9 +9,9 @@ import Avatar from "@/app/components/Avatar";
 import { profile } from "@/app/lib/content";
 
 const SECTIONS = [
-  { id: "evidence", label: "Evidence" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
+  { id: "projects", label: "Work" },
+  { id: "evidence", label: "How I work" },
   { id: "skills", label: "Skills" },
   { id: "about", label: "About" },
   { id: "contact", label: "Contact" },
@@ -89,7 +89,7 @@ export default function Nav() {
   const linkClass = useCallback(
     (id: string) =>
       `motion-safe:transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ${
-        active === id ? "text-accent" : "text-muted"
+        active === id ? "text-foreground" : "text-muted"
       }`,
     [active],
   );
@@ -101,19 +101,17 @@ export default function Nav() {
   return (
     <header
       data-print="hide"
-      className={`sticky top-0 z-50 border-b motion-safe:transition-colors ${
-        scrolled
-          ? "border-border bg-background/75 backdrop-blur-md"
-          : "border-transparent bg-transparent"
+      className={`material sticky top-0 z-50 border-b motion-safe:transition-colors ${
+        scrolled ? "border-border" : "border-transparent"
       }`}
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex h-16 w-full max-w-5xl items-center justify-between gap-4 px-6 sm:px-10"
+        className="mx-auto flex h-13 w-full max-w-5xl items-center justify-between gap-4 px-6 sm:px-10"
       >
         <Link
           href="/"
-          className="wordmark font-mono text-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="wordmark text-[17px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           {profile.handle}
         </Link>
@@ -124,7 +122,7 @@ export default function Nav() {
               <a
                 href={href(section.id)}
                 aria-current={activeSection === section.id ? "true" : undefined}
-                className={`font-mono text-xs ${linkClass(section.id)}`}
+                className={`text-[13px] ${linkClass(section.id)}`}
               >
                 {section.label}
               </a>
@@ -136,10 +134,8 @@ export default function Nav() {
           <Link
             href="/cv"
             aria-current={pathname === "/cv" ? "page" : undefined}
-            className={`hidden items-center gap-1.5 rounded-md border px-3 py-1.5 font-mono text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:inline-flex ${
-              pathname === "/cv"
-                ? "border-accent/50 text-accent"
-                : "border-border text-muted hover:border-border-strong hover:text-foreground"
+            className={`btn-primary hidden items-center gap-1.5 rounded-full px-3.5 py-1 text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:inline-flex ${
+              pathname === "/cv" ? "opacity-80" : ""
             }`}
           >
             <FileText aria-hidden="true" className="h-3.5 w-3.5" />
@@ -155,7 +151,7 @@ export default function Nav() {
             aria-expanded={open}
             aria-controls="nav-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="grid h-8 w-8 place-items-center rounded-md border border-border text-muted motion-safe:transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+            className="grid h-8 w-8 place-items-center rounded-full border border-border text-muted motion-safe:transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
           >
             {open ? (
               <X aria-hidden="true" className="h-4 w-4" />
@@ -170,7 +166,7 @@ export default function Nav() {
       {open ? (
         <div
           id="nav-menu"
-          className="border-t border-border bg-surface lg:hidden"
+          className="border-t border-border lg:hidden"
         >
           <ul
             role="list"
@@ -182,7 +178,7 @@ export default function Nav() {
                   href={href(section.id)}
                   onClick={() => setOpen(false)}
                   aria-current={activeSection === section.id ? "true" : undefined}
-                  className={`block rounded-md px-2 py-2 font-mono text-sm ${linkClass(
+                  className={`block rounded-md px-2 py-2 text-sm ${linkClass(
                     section.id,
                   )}`}
                 >
@@ -194,7 +190,7 @@ export default function Nav() {
               <Link
                 href="/cv"
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-2 py-2 font-mono text-sm text-muted motion-safe:transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                className="block rounded-md px-2 py-2 text-sm text-muted motion-safe:transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 CV
               </Link>

@@ -19,15 +19,15 @@ export default function Experience() {
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="px-6 py-24 sm:px-10 sm:py-32"
+      className="px-6 py-24 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-4xl space-y-14 sm:space-y-16">
         <SectionHeader
-          index="02"
+          index="01"
           kicker="Experience"
-          title="Six months inside an oil and gas company"
+          title="Building now. Grounded in enterprise IT."
           id="experience-heading"
-          lede="The most relevant thing I have done, and the one I would want to be asked about."
+          lede="Freelance web and app work today, on top of six months inside Nigeria's national oil and gas exploration company."
         />
 
         <motion.div
@@ -41,9 +41,9 @@ export default function Experience() {
             <motion.article
               key={role.title}
               variants={item}
-              className="card rounded-xl border border-border p-5 transition-colors duration-200 hover:border-border-strong sm:p-6"
+              className="card rounded-3xl border border-border p-5 transition-colors duration-200 hover:border-border-strong sm:p-6"
             >
-              <p className="font-mono text-xs text-faint">
+              <p className="text-xs text-faint">
                 <time dateTime={role.start.iso}>{role.start.label}</time>
                 {" — "}
                 {role.end ? (
@@ -53,7 +53,7 @@ export default function Experience() {
                 )}
               </p>
 
-              <h3 className="mt-3 text-balance text-lg font-medium tracking-tight text-foreground sm:text-xl">
+              <h3 className="mt-3 text-balance headline text-xl font-semibold text-foreground sm:text-2xl">
                 {role.title}
               </h3>
 
@@ -85,14 +85,14 @@ export default function Experience() {
           ))}
 
           {/* Education sits with experience rather than off on its own: for a
-              graduand the two are read together, and NYSC status is the first
+              graduate the two are read together, and NYSC status is the first
               thing a Nigerian recruiter looks for. */}
           <motion.article
             variants={item}
-            className="card rounded-xl border border-border p-5 sm:p-6"
+            className="card rounded-3xl border border-border p-6 sm:p-8"
           >
-            <p className="font-mono text-xs text-faint">{education.period}</p>
-            <h3 className="mt-3 text-lg font-medium tracking-tight text-foreground sm:text-xl">
+            <p className="text-xs text-faint">{education.period}</p>
+            <h3 className="mt-3 headline text-xl font-semibold text-foreground sm:text-2xl">
               {education.degree}
             </h3>
             <p className="mt-1.5 text-sm text-muted">{education.institution}</p>

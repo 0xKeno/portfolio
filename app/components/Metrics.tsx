@@ -23,9 +23,10 @@ function Counter({ metric }: { metric: Metric }) {
   const reduced = useReducedMotion() ?? false;
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.5 });
-  const [display, setDisplay] = useState(() =>
-    reduced ? metric.value : 0,
-  );
+  // Always start at zero so the server and the browser render the same text;
+  // under reduced motion the final value is derived below instead of animated.
+  const [animated, setDisplay] = useState(0);
+  const display = reduced && inView ? metric.value : animated;
 
   const decimals = metric.decimals ?? 0;
 
@@ -52,7 +53,7 @@ function Counter({ metric }: { metric: Metric }) {
     (metric.suffix ?? "");
 
   return (
-    <span ref={ref} className="tnum block text-4xl font-semibold text-data sm:text-5xl">
+    <span ref={ref} className="tnum display block text-5xl font-semibold text-data sm:text-6xl">
       <span aria-hidden="true">{formatted}</span>
       <span className="sr-only">{final}</span>
     </span>
@@ -65,7 +66,7 @@ export default function Metrics() {
   return (
     <section
       aria-labelledby="metrics-heading"
-      className="border-y border-border px-6 py-16 sm:px-10"
+      className="bg-surface px-6 py-20 sm:px-10 sm:py-24"
     >
       <h2 id="metrics-heading" className="sr-only">
         Selected figures
@@ -77,15 +78,15 @@ export default function Metrics() {
         whileInView="visible"
         viewport={viewportOnce}
         role="list"
-        className="mx-auto grid w-full max-w-5xl gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+        className="mx-auto grid w-full max-w-5xl gap-4 sm:grid-cols-2 lg:grid-cols-4"
       >
         {metrics.map((metric) => (
-          <motion.li key={metric.label} variants={item}>
+          <motion.li key={metric.label} variants={item} className="card rounded-3xl p-7">
             <Counter metric={metric} />
-            <p className="mt-3 text-sm font-medium text-foreground">
+            <p className="mt-4 text-base font-semibold text-foreground">
               {metric.label}
             </p>
-            <p className="mt-1 text-pretty text-xs leading-relaxed text-faint">
+            <p className="mt-1 text-pretty text-sm leading-relaxed text-muted">
               {metric.note}
             </p>
           </motion.li>

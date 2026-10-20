@@ -1,26 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import CommandPalette from "@/app/components/CommandPalette";
 import Nav from "@/app/components/Nav";
 import ScrollProgress from "@/app/components/ScrollProgress";
-import Spotlight from "@/app/components/Spotlight";
 import { profile } from "@/app/lib/content";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const title = `${profile.name} — Computer Science graduand, Benin City`;
+const title = `${profile.name} — Web and app developer, Benin City`;
 const description =
-  "Computer Science graduand in Benin City, Nigeria. Six months of enterprise IT operations at NNPC E&P, AI data verification, and analytics-led production work.";
+  "Computer Science graduate (Second Class Upper) in Benin City, Nigeria. I build websites and apps, with six months of enterprise IT operations at NNPC E&P behind me.";
 
 export const metadata: Metadata = {
   // Resolves every relative metadata URL below into an absolute one. Crawlers
@@ -37,9 +25,11 @@ export const metadata: Metadata = {
     "Okpoudhu Destiny Oghenekeno",
     "0xKeno",
     "Computer Science",
+    "web developer",
+    "app developer",
+    "Next.js",
     "graduate programme",
     "IT support",
-    "data annotation",
     "Benin City",
     "Nigeria",
   ],
@@ -61,29 +51,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className="h-full antialiased"
     >
       <body className="relative flex min-h-full flex-col">
-        {/* Ambient layers. Fixed rather than absolute so they behave as light
-            in the room instead of scrolling away as objects on the page. */}
-        <div
-          aria-hidden="true"
-          data-print="hide"
-          className="aurora pointer-events-none fixed inset-0 -z-20"
-        />
-        <div
-          aria-hidden="true"
-          data-print="hide"
-          className="dot-grid pointer-events-none absolute inset-0 -z-10"
-        />
-        <Spotlight />
         <ScrollProgress />
 
         {/* First stop in the tab order: a way past the navigation. Visible only
             when focused. */}
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[80] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
         >
           Skip to content
         </a>
@@ -97,15 +74,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <footer
           data-print="hide"
-          className="border-t border-border px-6 py-10 sm:px-10"
+          className="border-t border-border bg-surface px-6 py-10 sm:px-10"
         >
-          <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 font-mono text-xs text-faint sm:flex-row sm:items-center sm:justify-between">
+          <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 text-xs text-faint sm:flex-row sm:items-center sm:justify-between">
             <p>
               &copy; {new Date().getFullYear()} {profile.name}
             </p>
             <p>
               Built with Next.js and Tailwind CSS. Press{" "}
-              <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-muted">
+              <kbd className="rounded border border-border bg-elevated px-1.5 font-mono py-0.5 text-[10px] text-muted">
                 Ctrl K
               </kbd>{" "}
               to jump anywhere.

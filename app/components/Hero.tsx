@@ -2,41 +2,53 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
+import { ChevronRight, FileText } from "lucide-react";
 
+import Avatar from "@/app/components/Avatar";
 import CopyEmail from "@/app/components/CopyEmail";
-import { profile, summary } from "@/app/lib/content";
+import { heroLine, profile } from "@/app/lib/content";
 import { useStagger, useWordReveal } from "@/app/lib/motion";
 
+/**
+ * The opening, laid out like an Apple product launch: everything centred,
+ * one very large line, one statement in the accent gradient, a short
+ * paragraph, and two calls to action — a filled pill and a text link with a
+ * chevron.
+ */
 export default function Hero() {
   const { container, item, reduced } = useStagger({ delay: 0.35, travel: 18 });
-  const { container: words, word } = useWordReveal(0.1);
+  const { container: words, word } = useWordReveal(0.15);
 
   const nameWords = profile.name.split(" ");
 
   return (
     <section
       id="hero"
-      className="relative flex min-h-[92svh] items-center px-6 pb-20 pt-28 sm:px-10"
+      className="relative flex min-h-[88svh] items-center px-6 pb-24 pt-20 sm:px-10"
     >
-      <div className="mx-auto w-full max-w-5xl">
-        {/* Name. The visible text is split into animated word spans, so the
-            whole string is given to assistive tech once on the wrapper and the
-            spans themselves are hidden from it. */}
+      <div className="mx-auto w-full max-w-5xl text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: reduced ? 1 : 0.92 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 260, damping: 30 }}
+          className="mx-auto mb-8 w-fit"
+        >
+          <Avatar size={96} className="h-24 w-24 text-lg" />
+        </motion.div>
+
+        {/* The visible name is split into animated word spans, so the whole
+            string is given to assistive tech once on the wrapper and the spans
+            themselves are hidden from it. */}
         <motion.h1
           variants={words}
           initial="hidden"
           animate="visible"
           aria-label={profile.name}
-          className="display text-[clamp(2.5rem,8vw,5.5rem)] font-semibold leading-[0.95] tracking-tight"
+          className="display text-balance text-[clamp(2.75rem,8vw,6rem)] font-semibold"
         >
           {nameWords.map((text, index) => (
             <span key={text} className="inline-block overflow-hidden pb-[0.08em]">
-              <motion.span
-                variants={word}
-                aria-hidden="true"
-                className="inline-block"
-              >
+              <motion.span variants={word} aria-hidden="true" className="inline-block">
                 {text}
                 {index < nameWords.length - 1 ? " " : null}
               </motion.span>
@@ -44,83 +56,63 @@ export default function Hero() {
           ))}
         </motion.h1>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="mt-8"
-        >
-          <motion.div
-            variants={item}
-            className="flex flex-wrap items-center gap-x-4 gap-y-3"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-xs text-foreground">
-              <motion.span
-                aria-hidden="true"
-                className="h-1.5 w-1.5 shrink-0 rounded-full bg-data"
-                animate={reduced ? undefined : { opacity: [1, 0.25, 1] }}
-                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-              />
-              {profile.availability}
-            </span>
-            <span className="font-mono text-xs text-faint">
-              {profile.location} · {profile.timezone}
-            </span>
-          </motion.div>
-
+        <motion.div variants={container} initial="hidden" animate="visible">
           <motion.p
             variants={item}
-            className="mt-7 max-w-2xl text-balance text-xl leading-snug text-foreground sm:text-2xl"
+            className="headline gradient-text mx-auto mt-5 max-w-3xl text-balance text-[clamp(1.6rem,3.6vw,2.6rem)] font-semibold"
           >
-            {profile.title} working in {profile.strapline}.
+            I build websites and apps.
           </motion.p>
 
           <motion.p
             variants={item}
-            className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-muted"
+            className="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted sm:text-xl"
           >
-            {summary}
+            {heroLine}
           </motion.p>
 
           <motion.div
             variants={item}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-4"
           >
             <Link
               href="/cv"
-              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="btn-primary inline-flex items-center gap-2 rounded-full px-6 py-3 text-[17px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <FileText aria-hidden="true" className="h-4 w-4" />
               Read my CV
             </Link>
 
             <a
-              href="#evidence"
-              className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-medium text-foreground transition-colors hover:border-border-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="#projects"
+              className="group inline-flex items-center gap-0.5 text-[17px] text-accent hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
-              See the evidence
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4 text-muted" />
+              See my work
+              <ChevronRight
+                aria-hidden="true"
+                className="h-4 w-4 transition-transform motion-safe:group-hover:translate-x-0.5"
+              />
             </a>
-
-            <CopyEmail className="py-3" />
           </motion.div>
 
-          <motion.p
+          <motion.div
             variants={item}
-            aria-hidden="true"
-            className="mt-16 flex items-center gap-2 font-mono text-xs text-faint"
+            className="mt-10 flex flex-wrap items-center justify-center gap-3"
           >
-            <motion.span
-              animate={reduced ? undefined : { y: [0, 4, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="inline-flex"
-            >
-              <ArrowDown className="h-3.5 w-3.5" />
-            </motion.span>
-            Scroll, or press
-            <kbd className="rounded border border-border bg-surface px-1.5 py-0.5 text-[10px] text-muted">
-              Ctrl K
-            </kbd>
+            <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-sm text-foreground">
+              <motion.span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-data"
+                animate={reduced ? undefined : { opacity: [1, 0.3, 1] }}
+                transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              {profile.availability}
+            </span>
+            <CopyEmail />
+          </motion.div>
+
+          <motion.p variants={item} className="mt-6 text-sm text-faint">
+            {profile.location} · {profile.timezone}
           </motion.p>
         </motion.div>
       </div>

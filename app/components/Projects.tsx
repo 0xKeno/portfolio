@@ -28,15 +28,15 @@ export default function Projects() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="px-6 py-24 sm:px-10 sm:py-32"
+      className="bg-surface px-6 py-24 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-4xl space-y-14 sm:space-y-16">
         <SectionHeader
-          index="03"
-          kicker="Projects"
-          title="Things I've built"
+          index="02"
+          kicker="Work"
+          title="Things I've built."
           id="projects-heading"
-          lede="Three, all still running. Open one to see what was asked for, what I decided, and why."
+          lede="Shipped, running, and one on the way. Open any of them to see what was asked for, what I decided, and why."
         />
 
         <motion.ul
@@ -56,21 +56,21 @@ export default function Projects() {
               <motion.li
                 key={project.id}
                 variants={item}
-                className={`card rounded-xl border transition-colors duration-200 ${
+                className={`card rounded-3xl border transition-colors duration-200 ${
                   isOpen ? "border-accent/40" : "border-border hover:border-border-strong"
                 }`}
               >
-                <div className="p-5 sm:p-6">
+                <div className="p-6 sm:p-8">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="rounded-md border border-border bg-elevated px-2 py-0.5 font-mono text-[11px] uppercase tracking-wider text-accent">
+                    <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-semibold text-accent">
                       {project.role}
                     </span>
-                    <span className="font-mono text-xs text-faint">
+                    <span className="text-xs text-faint">
                       {project.year}
                     </span>
                   </div>
 
-                  <h3 className="mt-3 text-balance text-lg font-medium tracking-tight text-foreground sm:text-xl">
+                  <h3 className="mt-3 text-balance headline text-xl font-semibold text-foreground sm:text-2xl">
                     {project.name}
                   </h3>
                   <p className="mt-1 text-sm text-muted">{project.tagline}</p>
@@ -80,7 +80,7 @@ export default function Projects() {
                   </p>
 
                   <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-foreground">
-                    <span className="font-mono text-xs uppercase tracking-wider text-data">
+                    <span className="text-xs font-semibold text-data">
                       Outcome{" "}
                     </span>
                     {project.outcome}
@@ -93,7 +93,7 @@ export default function Projects() {
                           href={project.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-1.5 font-mono text-xs text-foreground transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                          className="group inline-flex items-center gap-1.5 text-xs text-foreground transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                         >
                           {project.href.replace("https://", "")}
                           <ArrowUpRight
@@ -109,7 +109,7 @@ export default function Projects() {
                           href={project.repo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 font-mono text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                          className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                         >
                           <GitHubIcon aria-hidden="true" className="h-3.5 w-3.5" />
                           Source
@@ -120,6 +120,8 @@ export default function Projects() {
                   ) : null}
                 </div>
 
+                {project.decisions.length > 0 || project.stack.length > 0 ? (
+                <>
                 <h4>
                   <button
                     type="button"
@@ -127,7 +129,7 @@ export default function Projects() {
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onClick={() => setOpen(isOpen ? null : project.id)}
-                    className="flex w-full items-center justify-between gap-4 border-t border-border px-5 py-3.5 text-left font-mono text-xs text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent sm:px-6"
+                    className="flex w-full items-center justify-between gap-4 border-t border-border px-6 py-4 text-left text-xs text-muted transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent sm:px-8"
                   >
                     {isOpen ? "Hide the detail" : "How it was built"}
                     <motion.span
@@ -154,9 +156,9 @@ export default function Projects() {
                       transition={{ duration: 0.32, ease: EASE }}
                       className="overflow-hidden"
                     >
-                      <div className="space-y-6 border-t border-border px-5 py-5 sm:px-6">
+                      <div className="space-y-6 border-t border-border px-6 py-6 sm:px-8">
                         <div>
-                          <h5 className="font-mono text-xs uppercase tracking-wider text-faint">
+                          <h5 className="text-xs font-semibold text-faint">
                             The brief
                           </h5>
                           <p className="mt-2 max-w-2xl text-pretty text-sm leading-relaxed text-muted">
@@ -164,8 +166,9 @@ export default function Projects() {
                           </p>
                         </div>
 
+                        {project.decisions.length > 0 ? (
                         <div>
-                          <h5 className="font-mono text-xs uppercase tracking-wider text-faint">
+                          <h5 className="text-xs font-semibold text-faint">
                             Decisions
                           </h5>
                           <ul role="list" className="mt-2 space-y-2.5">
@@ -183,26 +186,31 @@ export default function Projects() {
                             ))}
                           </ul>
                         </div>
+                        ) : null}
 
+                        {project.stack.length > 0 ? (
                         <div>
-                          <h5 className="font-mono text-xs uppercase tracking-wider text-faint">
+                          <h5 className="text-xs font-semibold text-faint">
                             Built with
                           </h5>
                           <ul role="list" className="mt-2 flex flex-wrap gap-2">
                             {project.stack.map((tool) => (
                               <li
                                 key={tool}
-                                className="rounded-md border border-border bg-elevated px-2.5 py-1 font-mono text-[11px] text-muted"
+                                className="rounded-md border border-border bg-elevated px-2.5 py-1 text-[11px] text-muted"
                               >
                                 {tool}
                               </li>
                             ))}
                           </ul>
                         </div>
+                        ) : null}
                       </div>
                     </motion.div>
                   ) : null}
                 </AnimatePresence>
+                </>
+                ) : null}
               </motion.li>
             );
           })}

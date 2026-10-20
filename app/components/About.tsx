@@ -14,13 +14,13 @@ export default function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="px-6 py-24 sm:px-10 sm:py-32"
+      className="px-6 py-24 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-4xl space-y-14 sm:space-y-16">
         <SectionHeader
           index="05"
           kicker="About"
-          title="How I got here"
+          title="How I got here."
           id="about-heading"
         />
 
@@ -36,7 +36,7 @@ export default function About() {
               <p className="text-sm font-medium text-foreground">
                 {profile.name}
               </p>
-              <p className="font-mono text-xs text-faint">
+              <p className="text-xs text-faint">
                 {profile.location} · {profile.timezone}
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function About() {
           </div>
 
           <motion.div variants={item} className="mt-10">
-            <h3 className="font-mono text-sm text-data">Right now</h3>
+            <h3 className="text-sm text-data">Right now</h3>
             <ul role="list" className="mt-3 max-w-xl space-y-2">
               {now.map((entry) => (
                 <li

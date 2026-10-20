@@ -51,13 +51,13 @@ export default function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="px-6 py-24 sm:px-10 sm:py-32"
+      className="bg-surface px-6 py-24 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-4xl space-y-14 sm:space-y-16">
         <SectionHeader
           index="06"
           kicker="Contact"
-          title="Get in touch"
+          title="Let’s talk."
           id="contact-heading"
         />
 
@@ -88,14 +88,14 @@ export default function Contact() {
                   {...(external
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="card group flex items-center gap-3 rounded-xl border border-border p-4 transition-[transform,border-color] duration-200 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-safe:hover:-translate-y-0.5"
+                  className="card group flex items-center gap-3 rounded-3xl border border-border p-4 transition-[transform,border-color] duration-200 hover:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent motion-safe:hover:-translate-y-0.5"
                 >
                   <Icon
                     aria-hidden="true"
                     className="h-4 w-4 shrink-0 text-muted transition-colors group-hover:text-accent"
                   />
                   <span className="min-w-0">
-                    <span className="block font-mono text-xs text-faint">
+                    <span className="block text-xs text-faint">
                       {label}
                     </span>
                     <span className="block truncate text-sm text-foreground">

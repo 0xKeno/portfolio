@@ -47,7 +47,7 @@ export default function CopyEmail({ className = "" }: CopyEmailProps) {
         type="button"
         onClick={copy}
         aria-label={`Copy email address, ${profile.email}`}
-        className={`inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 font-mono text-xs text-muted transition-colors hover:border-border-strong hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`}
+        className={`inline-flex items-center gap-2 rounded-full border border-border px-3.5 py-1.5 text-sm text-muted transition-colors hover:border-border-strong hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${className}`}
       >
         {copied ? (
           <Check aria-hidden="true" className="h-3.5 w-3.5 text-data" />

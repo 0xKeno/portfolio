@@ -29,13 +29,13 @@ export default function Evidence() {
     <section
       id="evidence"
       aria-labelledby="evidence-heading"
-      className="px-6 py-24 sm:px-10 sm:py-32"
+      className="px-6 py-24 sm:px-10 sm:py-36"
     >
-      <div className="mx-auto grid w-full max-w-5xl gap-12 lg:grid-cols-[16rem_1fr] lg:gap-16">
+      <div className="mx-auto w-full max-w-4xl space-y-14 sm:space-y-16">
         <SectionHeader
-          index="01"
-          kicker="Evidence"
-          title="What I can show you"
+          index="03"
+          kicker="How I work"
+          title="Claims, with proof."
           id="evidence-heading"
           lede="Four claims, each with the specific thing that backs it. Open one to see the situation, what I did, and what changed."
         />
@@ -57,7 +57,7 @@ export default function Evidence() {
               <motion.li
                 key={entry.id}
                 variants={item}
-                className={`card overflow-hidden rounded-xl border transition-colors duration-200 ${
+                className={`card overflow-hidden rounded-3xl border transition-colors duration-200 ${
                   isOpen
                     ? "border-accent/40"
                     : "border-border hover:border-border-strong"
@@ -70,13 +70,13 @@ export default function Evidence() {
                     aria-expanded={isOpen}
                     aria-controls={panelId}
                     onClick={() => setOpen(isOpen ? null : entry.id)}
-                    className="flex w-full items-start gap-4 px-5 py-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent sm:px-6"
+                    className="flex w-full items-start gap-4 px-6 py-6 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent sm:px-8"
                   >
                     <span className="min-w-0 flex-1">
-                      <span className="block font-mono text-xs uppercase tracking-[0.18em] text-accent">
+                      <span className="block text-xs font-semibold text-accent">
                         {entry.trait}
                       </span>
-                      <span className="mt-2 block text-pretty text-base font-medium text-foreground sm:text-lg">
+                      <span className="mt-2 block text-pretty text-lg font-semibold text-foreground sm:text-xl">
                         {entry.claim}
                       </span>
                     </span>
@@ -105,7 +105,7 @@ export default function Evidence() {
                       transition={{ duration: 0.32, ease: EASE }}
                       className="overflow-hidden"
                     >
-                      <dl className="space-y-4 border-t border-border px-5 py-5 sm:px-6">
+                      <dl className="space-y-4 border-t border-border px-6 py-6 sm:px-8">
                         {(
                           [
                             ["Situation", entry.situation],
@@ -114,7 +114,7 @@ export default function Evidence() {
                           ] as const
                         ).map(([label, text]) => (
                           <div key={label} className="sm:grid sm:grid-cols-[7rem_1fr] sm:gap-4">
-                            <dt className="font-mono text-xs uppercase tracking-wider text-faint">
+                            <dt className="text-xs font-semibold text-faint">
                               {label}
                             </dt>
                             <dd className="mt-1 text-pretty text-sm leading-relaxed text-muted sm:mt-0">

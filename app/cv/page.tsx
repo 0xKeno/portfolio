@@ -15,7 +15,7 @@ import {
 
 export const metadata: Metadata = {
   title: "CV",
-  description: `Curriculum vitae for ${profile.name} — Computer Science graduand, IT operations, digital and data.`,
+  description: `Curriculum vitae for ${profile.name} — Computer Science graduate, web and app developer, IT support.`,
   alternates: { canonical: "/cv" },
 };
 
@@ -30,7 +30,7 @@ function Section({
 }) {
   return (
     <section className="mt-10 first:mt-0">
-      <h2 className="border-b border-border pb-2 font-mono text-xs uppercase tracking-[0.2em] text-accent">
+      <h2 className="border-b border-border pb-2 text-xs font-semibold text-accent">
         {title}
       </h2>
       <div className="mt-5">{children}</div>
@@ -64,7 +64,7 @@ export default function CvPage() {
         <Link
           href="/"
           data-print="hide"
-          className="inline-flex items-center gap-2 font-mono text-xs text-faint transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="inline-flex items-center gap-2 text-xs text-faint transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           <ArrowLeft aria-hidden="true" className="h-3.5 w-3.5" />
           Back to the site
@@ -81,7 +81,7 @@ export default function CvPage() {
 
           <ul
             role="list"
-            className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 font-mono text-xs text-muted"
+            className="mt-5 flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-muted"
           >
             <li>{profile.location}</li>
             <li>{profile.phone}</li>
@@ -159,7 +159,7 @@ export default function CvPage() {
             <h3 className="text-base font-medium text-foreground">
               {education.degree}
             </h3>
-            <p className="mt-1 font-mono text-xs text-faint">
+            <p className="mt-1 text-xs text-faint">
               {education.institution} · {education.period}
             </p>
             <Bullets items={education.notes} />
@@ -176,7 +176,7 @@ export default function CvPage() {
                   <h3 className="text-base font-medium text-foreground">
                     {role.title}
                   </h3>
-                  <p className="mt-1 font-mono text-xs text-faint">
+                  <p className="mt-1 text-xs text-faint">
                     {role.company} · {role.context} ·{" "}
                     <time dateTime={role.start.iso}>{role.start.label}</time>
                     {" – "}
@@ -201,7 +201,7 @@ export default function CvPage() {
                 <li key={project.id}>
                   <h3 className="text-base font-medium text-foreground">
                     {project.name}
-                    <span className="ml-2 font-mono text-xs font-normal text-faint">
+                    <span className="ml-2 text-xs font-normal text-faint">
                       {project.role} · {project.year}
                     </span>
                   </h3>
@@ -222,7 +222,7 @@ export default function CvPage() {
                     {project.outcome}
                   </p>
 
-                  <p className="mt-3 font-mono text-xs text-faint">
+                  <p className="mt-3 text-xs text-faint">
                     {project.stack.join(" · ")}
                     {project.href
                       ? ` · ${project.href.replace("https://", "")}`
@@ -240,7 +240,7 @@ export default function CvPage() {
                   key={group.label}
                   className="sm:grid sm:grid-cols-[9rem_1fr] sm:gap-4"
                 >
-                  <dt className="font-mono text-xs uppercase tracking-wider text-faint">
+                  <dt className="text-xs font-semibold text-faint">
                     {group.label}
                   </dt>
                   <dd className="mt-1 text-sm leading-relaxed text-muted sm:mt-0">
@@ -269,13 +269,13 @@ export default function CvPage() {
           <Section title="Additional information">
             <dl className="space-y-3 text-sm">
               <div className="sm:grid sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="font-mono text-xs uppercase tracking-wider text-faint">
+                <dt className="text-xs font-semibold text-faint">
                   Languages
                 </dt>
                 <dd className="mt-1 text-muted sm:mt-0">English (fluent)</dd>
               </div>
               <div className="sm:grid sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="font-mono text-xs uppercase tracking-wider text-faint">
+                <dt className="text-xs font-semibold text-faint">
                   Availability
                 </dt>
                 <dd className="mt-1 text-muted sm:mt-0">
@@ -284,7 +284,7 @@ export default function CvPage() {
                 </dd>
               </div>
               <div className="sm:grid sm:grid-cols-[9rem_1fr] sm:gap-4">
-                <dt className="font-mono text-xs uppercase tracking-wider text-faint">
+                <dt className="text-xs font-semibold text-faint">
                   Interests
                 </dt>
                 <dd className="mt-1 text-muted sm:mt-0">

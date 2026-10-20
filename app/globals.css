@@ -3,48 +3,87 @@
 /* ---------------------------------------------------------------------------
    Design tokens
 
-   Dark only, by choice — there is no theme toggle and no light palette. The
-   base moved off pure grey onto a slight blue cast so the violet accent sits
-   in the same family as the ground instead of floating on top of it.
+   Light and dark, following the visitor's system setting — the way Apple's
+   own product pages behave. Tokens are defined once as raw custom properties
+   on :root and swapped under prefers-color-scheme; Tailwind's utilities point
+   at those variables through `@theme inline`, so `bg-background` or
+   `text-muted` resolve to the right value in either scheme with no `dark:`
+   variants anywhere in the components.
 
    Two accents, with a strict division of labour:
-     --color-accent  identity. Links, focus, active state, the wordmark.
+     --color-accent  identity. Links, focus, active state, the wordmark, CTAs.
      --color-data    numbers only. Metrics, figures, measured results.
    Nothing else is allowed to use --color-data. The moment it decorates, it
-   stops meaning "this is a real measurement" and the site loses the one
-   signal it is trying to send.
+   stops meaning "this is a real measurement".
 ------------------------------------------------------------------------- */
 
-@theme {
-  --color-background: #07070a;
-  --color-surface: #101015;
-  --color-elevated: #17171f;
-  --color-border: #26262f;
-  --color-border-strong: #35353f;
-  --color-foreground: #f2f2f5;
-  --color-muted: #8b8b99;
-  --color-faint: #5c5c68;
-  --color-accent: #a78bfa;
-  --color-accent-dim: #7c5cf0;
-  --color-data: #5eead4;
+:root {
+  color-scheme: light dark;
+
+  /* Light — Apple's near-white ground and #f5f5f7 tile grey. */
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --elevated: #ffffff;
+  --border: #e3e3e8;
+  --border-strong: #c7c7cc;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --faint: #86868b;
+  --accent: #0071e3;
+  --accent-dim: #0062c4;
+  --data: #0b8a6a;
+  /* The nav material: translucent ground, blurred content underneath. */
+  --material: rgb(255 255 255 / 0.72);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark — true black ground, like Apple's Pro pages. */
+    --bg: #000000;
+    --surface: #161617;
+    --elevated: #1d1d1f;
+    --border: #2c2c2e;
+    --border-strong: #424245;
+    --fg: #f5f5f7;
+    --muted: #a1a1a6;
+    --faint: #6e6e73;
+    --accent: #2997ff;
+    --accent-dim: #0a84ff;
+    --data: #30d5a8;
+    --material: rgb(22 22 23 / 0.72);
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.5);
+  }
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-data: var(--data);
 
-:root {
-  color-scheme: dark;
-  /* Consumed by the spotlight; updated from JS on pointer move. */
-  --pointer-x: 50%;
-  --pointer-y: 0%;
+  /* The platform's own font: San Francisco on Apple devices, Segoe UI on
+     Windows, Roboto on Android. It already ships optical sizing and tracking
+     tables, and it costs zero bytes to download. */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono",
+    monospace;
 }
 
 html {
   scroll-behavior: smooth;
-  /* The sticky header is 4rem; anchored sections need to clear it. */
-  scroll-padding-top: 5rem;
+  /* The sticky header is 3.25rem; anchored sections need to clear it. */
+  scroll-padding-top: 4rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -54,116 +93,72 @@ html {
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  /* Stops iOS from inflating type in landscape without disabling user zoom. */
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  /* Comfortable leading for body copy; headings tighten their own. */
+  line-height: 1.5;
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--color-accent), transparent 70%);
-  color: var(--color-foreground);
+  background: color-mix(in oklab, var(--accent), transparent 72%);
+  color: var(--fg);
 }
 
-/* Firefox honours these; WebKit uses ::-webkit-scrollbar, which is fine to
-   skip — the default there is already unobtrusive on a dark ground. */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-border-strong) transparent;
+  scrollbar-color: var(--border-strong) transparent;
 }
 
 /* ---------------------------------------------------------------------------
-   Ambient background
+   Type
+
+   Tracking is size-specific: large display type reads too loose as it grows,
+   so it gets negative letter-spacing and tight leading. Body copy stays near
+   zero.
 ------------------------------------------------------------------------- */
 
-/* Two soft washes, fixed to the viewport so they read as light in the room
-   rather than as objects on the page. Zero-alpha stops are written against
-   the accent colour, never `transparent` — `transparent` is rgba(0,0,0,0),
-   so interpolating toward it drags the midpoint through grey. */
-.aurora {
-  background-image:
-    radial-gradient(
-      42rem 30rem at 12% -6%,
-      rgb(from var(--color-accent) r g b / 0.16),
-      rgb(from var(--color-accent) r g b / 0)
-    ),
-    radial-gradient(
-      34rem 26rem at 92% 8%,
-      rgb(from var(--color-data) r g b / 0.07),
-      rgb(from var(--color-data) r g b / 0)
-    );
+.display {
+  color: var(--fg);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  font-optical-sizing: auto;
 }
 
-/* Fine dot texture. Border colour, never accent — texture, not pattern. */
-.dot-grid {
-  background-image: radial-gradient(
-    circle at 1px 1px,
-    var(--color-border) 1px,
-    transparent 0
-  );
-  background-size: 26px 26px;
-  /* Stops are in svh, not percentages: this element spans the whole document,
-     so a percentage would re-target itself every time the page grows. */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 70svh,
-    #000 130svh
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 70svh,
-    #000 130svh
-  );
+.headline {
+  letter-spacing: -0.022em;
+  line-height: 1.1;
 }
 
-/* Cursor spotlight. Mounted only for fine pointers and only when motion is
-   allowed — see Spotlight.tsx. */
-.spotlight {
-  background: radial-gradient(
-    22rem 22rem at var(--pointer-x) var(--pointer-y),
-    rgb(from var(--color-accent) r g b / 0.06),
-    rgb(from var(--color-accent) r g b / 0) 70%
-  );
+/* Eyebrow above a section heading — sentence case, accent, semibold. */
+.eyebrow {
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
-/* ---------------------------------------------------------------------------
-   Type treatments
-------------------------------------------------------------------------- */
-
-/* Solid accent by default. The gradient is layered on only where
-   background-clip: text is supported, so an unsupporting browser never ends
-   up with `color: transparent` and nothing painting over it. */
 .wordmark {
-  color: var(--color-accent);
+  color: var(--fg);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Hero statement fill. Solid by default; the gradient is layered on only
+   where background-clip: text is supported, so no browser is left with
+   transparent text and nothing painting it. */
+.gradient-text {
+  color: var(--fg);
 }
 
 @supports (background-clip: text) or (-webkit-background-clip: text) {
-  .wordmark {
+  .gradient-text {
     background-image: linear-gradient(
       100deg,
-      var(--color-accent),
-      color-mix(in oklab, var(--color-accent), white 40%)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-}
-
-/* Display heading fill — foreground into a muted tail, so long headings
-   settle rather than shouting the whole way across. */
-.display {
-  color: var(--color-foreground);
-}
-
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-  .display {
-    background-image: linear-gradient(
-      170deg,
-      var(--color-foreground) 30%,
-      color-mix(in oklab, var(--color-foreground), var(--color-background) 45%)
+      var(--accent) 0%,
+      color-mix(in oklab, var(--accent), var(--data) 55%) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -181,29 +176,54 @@ body {
    Surfaces
 ------------------------------------------------------------------------- */
 
-/* Hairline top highlight — the cheap trick that makes a flat card read as a
-   physical surface catching light from above. */
+/* A tile: Apple's grey card on white, or a lifted panel on black. The border
+   utilities on each card stay in place for focus and hover states, but at
+   rest the tile is defined by its fill, not its outline. */
 .card {
   position: relative;
-  background: var(--color-surface);
+  background: var(--surface);
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding-top: 1px;
-  background: linear-gradient(
-    to bottom,
-    rgb(from var(--color-foreground) r g b / 0.07),
-    transparent 40%
-  );
-  -webkit-mask-image: linear-gradient(#000 0 0);
-  mask-image: linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+/* The frosted nav material. Content scrolls underneath and shows through,
+   blurred and slightly saturated so colour still carries. */
+.material {
+  background: var(--material);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Pill buttons. */
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--accent-dim);
+}
+
+/* ---------------------------------------------------------------------------
+   Accessibility preferences beyond motion
+------------------------------------------------------------------------- */
+
+/* Asked for less transparency: make the material solid. */
+@media (prefers-reduced-transparency: reduce) {
+  .material {
+    background: var(--bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* Asked for more contrast: give tiles a defined edge and darken secondary
+   text. */
+@media (prefers-contrast: more) {
+  :root {
+    --muted: var(--fg);
+    --border: var(--border-strong);
+  }
+  .card {
+    outline: 1px solid var(--border-strong);
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -222,18 +242,13 @@ body {
     color: #111 !important;
   }
 
-  /* Ambient layers, navigation and anything explicitly marked are noise on
-     paper. */
-  .aurora,
-  .dot-grid,
-  .spotlight,
   [data-print="hide"] {
     display: none !important;
   }
 
-  .card,
-  .card::before {
+  .card {
     background: #fff !important;
+    outline: none !important;
   }
 
   a {
@@ -241,7 +256,6 @@ body {
     text-decoration: none !important;
   }
 
-  /* Keep a heading with the block it introduces. */
   h1,
   h2,
   h3 {
@@ -254,4 +268,11 @@ body {
   li {
     break-inside: avoid-page;
   }
+}
+
+/* A tile sitting on a grey band lifts to the elevated colour, so it still
+   reads as a separate surface. */
+.bg-surface .card {
+  background: var(--elevated);
+  box-shadow: var(--shadow);
 }
