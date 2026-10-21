@@ -95,7 +95,7 @@ export default function Projects() {
                           rel="noopener noreferrer"
                           className="group inline-flex items-center gap-1.5 text-xs text-foreground transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
                         >
-                          {project.href.replace("https://", "")}
+                          {project.href.replace(/^https:\/\/(www\.)?/, "")}
                           <ArrowUpRight
                             aria-hidden="true"
                             className="h-3.5 w-3.5 transition-transform motion-safe:group-hover:-translate-y-px motion-safe:group-hover:translate-x-px"

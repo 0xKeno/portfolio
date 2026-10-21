@@ -70,7 +70,7 @@ export default function CommandPalette() {
     const sections: Array<[string, string]> = [
       ["evidence", "Four claims, with the proof behind each"],
       ["experience", "Six months at NNPC E&P, and my degree"],
-      ["projects", "A client build, this site, and The Object Files"],
+      ["projects", "A client build, this site, Trading Desks and Stickk"],
       ["skills", "Grouped by how well I know them"],
       ["about", "How I got here, and what I'm doing now"],
       ["contact", "Email, GitHub, LinkedIn"],

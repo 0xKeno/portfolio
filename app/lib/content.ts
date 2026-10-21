@@ -21,6 +21,9 @@ export const profile = {
   phone: "+234 707 189 0448",
   github: "https://github.com/0xKeno",
   linkedin: "https://linkedin.com/in/0xkeno",
+  /* wa.me wants the number in international form with no + or spaces. */
+  whatsapp: "https://wa.me/2347071890448",
+  youtube: "https://www.youtube.com/@stickk-b1f",
   site: "https://0xkeno.vercel.app",
   availability: "Open to graduate, junior developer and remote roles",
 } as const;
@@ -273,23 +276,24 @@ export const projects: Project[] = [
     stack: [],
   },
   {
-    id: "objectfiles",
-    name: "The Object Files",
-    tagline: "A channel run on its own numbers",
+    id: "stickk",
+    name: "Stickk",
+    tagline: "Stick-figure explainers about how ancient humans lived",
     role: "Independent",
-    year: "2025 – present",
+    year: "2026",
     summary:
-      "A faceless explainer channel about ordinary objects and the part of them nobody can explain. Everything after the idea is a measurement problem, and that is the part I do: which thumbnail earns the click, where the retention curve breaks, which referring videos produce watch time instead of bounces.",
+      "A YouTube channel of illustrated stick-figure stories about early human life — what people did when someone died, what happened when they grew old. I write every script, produce the voiceover and visuals with AI tools, and decide what to make next from the numbers.",
     brief:
-      "Grow a channel from nothing without guessing — decide each production from the last one's data rather than from what I felt like making.",
+      "Tell a seven-to-eight-minute story about the deep past that holds attention from the first line, in one consistent visual style, without wasting paid generation credits.",
     decisions: [
-      "Read the traffic-source export by watch time per referral group rather than by view count, because 82 of the 91 referring videos sent exactly one view and the totals said nothing.",
-      "Mapped absolute retention against comparable videos to find where the curve went negative relative to them, and rebuilt the next production's pacing around that point.",
-      "Judged a Studio-flagged retention “spike” against a sample of eighteen measured viewers and treated it as noise rather than acting on it.",
+      "Scripts are written to a measured runtime, with voice direction written into the script itself so the generated narration reads like a person rather than a machine.",
+      "Visuals are stills in a single stick-figure style, cut at a quick pace, rather than spending credits on video generation.",
+      "Every script is checked against its sources before anything is generated, because a mistake found after generation costs credits to fix.",
     ],
     outcome:
-      "Average percentage viewed rose from 27.7% to 46.2%, and average view duration from 2:23 to 3:33, between two consecutive productions.",
-    stack: ["YouTube Analytics", "Retention analysis", "Traffic-source data"],
+      "Three videos published and 1,573 views as of October 2026 (vidIQ).",
+    stack: ["Script writing", "ElevenLabs", "Framesail", "YouTube Analytics"],
+    href: "https://www.youtube.com/@stickk-b1f",
   },
 ];
 

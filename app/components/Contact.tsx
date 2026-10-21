@@ -2,7 +2,7 @@
 
 import type { ComponentType } from "react";
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
+import { Mail, MessageCircle, PlayCircle } from "lucide-react";
 
 import { GitHubIcon, LinkedInIcon, type IconProps } from "@/app/components/BrandIcons";
 import CopyEmail from "@/app/components/CopyEmail";
@@ -40,6 +40,20 @@ const links: ContactLink[] = [
     value: "linkedin.com/in/0xkeno",
     href: profile.linkedin,
     Icon: LinkedInIcon,
+    external: true,
+  },
+  {
+    label: "WhatsApp",
+    value: "+234 707 189 0448",
+    href: profile.whatsapp,
+    Icon: MessageCircle,
+    external: true,
+  },
+  {
+    label: "YouTube",
+    value: "Stickk",
+    href: profile.youtube,
+    Icon: PlayCircle,
     external: true,
   },
 ];

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronRight, FileText } from "lucide-react";
 
-import Avatar from "@/app/components/Avatar";
+import Logo from "@/app/components/Logo";
 import CopyEmail from "@/app/components/CopyEmail";
 import { heroLine, profile } from "@/app/lib/content";
 import { useStagger, useWordReveal } from "@/app/lib/motion";
@@ -33,7 +33,7 @@ export default function Hero() {
           transition={{ type: "spring", stiffness: 260, damping: 30 }}
           className="mx-auto mb-8 w-fit"
         >
-          <Avatar size={96} className="h-24 w-24 text-lg" />
+          <Logo size={88} className="drop-shadow-lg" />
         </motion.div>
 
         {/* The visible name is split into animated word spans, so the whole
@@ -44,7 +44,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           aria-label={profile.name}
-          className="display text-balance text-[clamp(2.75rem,8vw,6rem)] font-semibold"
+          className="display text-balance text-[clamp(2.25rem,5.5vw,4.25rem)] font-semibold"
         >
           {nameWords.map((text, index) => (
             <span key={text} className="inline-block overflow-hidden pb-[0.08em]">

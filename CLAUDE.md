@@ -11,7 +11,9 @@
   NNPC E&P Limited (Jun–Nov 2025).
 - Built two production sites: a career portfolio for Alex Okpoudhu, an
   upstream oil and gas production operations lead (client work), and this
-  site. Runs The Object Files on YouTube, framed here as analytics work.
+  site. Runs Stickk (youtube.com/@stickk-b1f), a stick-figure ancient-humans
+  explainer channel. No photo of him on the site: the 0xKeno logo
+  (app/components/Logo.tsx, app/icon.svg) stands in for it.
 - Skills are honestly early-career/foundational. NEVER imply senior experience
   or invent projects. No fabricated clients, metrics, or testimonials.
 

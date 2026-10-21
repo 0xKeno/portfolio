@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-import Avatar from "@/app/components/Avatar";
+import Logo from "@/app/components/Logo";
 import SectionHeader from "@/app/components/SectionHeader";
 import { now, profile } from "@/app/lib/content";
 import { useStagger, viewportOnce } from "@/app/lib/motion";
@@ -31,7 +31,7 @@ export default function About() {
           viewport={viewportOnce}
         >
           <motion.div variants={item} className="flex items-center gap-4">
-            <Avatar size={64} className="h-16 w-16 text-sm" />
+            <Logo size={56} title="" />
             <div>
               <p className="text-sm font-medium text-foreground">
                 {profile.name}

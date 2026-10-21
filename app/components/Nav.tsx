@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FileText, Menu, X } from "lucide-react";
 
-import Avatar from "@/app/components/Avatar";
+import Logo from "@/app/components/Logo";
 import { profile } from "@/app/lib/content";
 
 const SECTIONS = [
@@ -98,6 +98,11 @@ export default function Nav() {
   // home first, or they resolve against the current route and do nothing.
   const href = (id: string) => (onHome ? `#${id}` : `/#${id}`);
 
+  // The links page is a standalone link-in-bio card; it carries its own way
+  // back to the site, so the full navigation would only crowd it. This sits
+  // after every hook so the hook order never changes between routes.
+  if (pathname === "/links") return null;
+
   return (
     <header
       data-print="hide"
@@ -111,8 +116,9 @@ export default function Nav() {
       >
         <Link
           href="/"
-          className="wordmark text-[17px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+          className="wordmark inline-flex items-center gap-2 text-[17px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
+          <Logo size={26} title="" />
           {profile.handle}
         </Link>
 
@@ -142,7 +148,6 @@ export default function Nav() {
             CV
           </Link>
 
-          <Avatar size={32} className="h-8 w-8 text-[10px]" alt="" />
 
           <button
             ref={buttonRef}
